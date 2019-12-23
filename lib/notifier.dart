@@ -20,13 +20,14 @@ class DataModel extends ChangeNotifier {
   int get Store=>store;
 
 
-  Future getApi(int storeId) async
+  Future getApi(int storeId,bool getData) async
   {
     store=storeId;
     _toggle=!_toggle;
     notifyListeners();
     cachedBookings = await BookingsManager().getAllBookingsFromCache(storeId);
-    if(cachedBookings == null || cachedBookings.isEmpty){
+    if(cachedBookings == null || cachedBookings.isEmpty || getData){
+      print("from server");
       http.Response response= await http.get(Uri.encodeFull("https://mobile.bookjoy.me/index.php/API_User/api_get_json_dump_by_store/${storeId}"),
           headers: {
             "Accept":"application/json"

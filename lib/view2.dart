@@ -53,9 +53,15 @@ class _MyHomePage2State extends State<MyHomePage2> {
                     RaisedButton(onPressed: (){
                       count++;
 
-                      BookingsManager().getBookingsDataFromServer(context,count);
+                      BookingsManager().getBookingsDataFromServer(context,count,false);
 
                     },child: Text('Change Store'),),
+                    RaisedButton(onPressed: (){
+//                      count++;
+
+                      BookingsManager().getBookingsDataFromServer(context,count,true);
+
+                    },child: Text('GetData'),),
                     Text('Store Number ${data.store}'),
                   ],),
                 Expanded(

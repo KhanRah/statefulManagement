@@ -17,11 +17,11 @@ class BookingsManager {
 
   factory BookingsManager() => _bookingsManagerInstance;
 
-  Future<List<Booking>> getBookingsDataFromServer(BuildContext context,int count) async{
+  Future<List<Booking>> getBookingsDataFromServer(BuildContext context,int count,bool getData) async{
 //    if(allBookings!=null) allBookings.clear();
     int stroeId = count%2==0?5:14;
 
-       Provider.of<DataModel>(context).getApi(stroeId);
+       Provider.of<DataModel>(context).getApi(stroeId,getData);
 
   }
 
