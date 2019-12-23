@@ -1,4 +1,4 @@
-# Stateful Management with Flutter
+# State Management with Flutter
 
 A new Flutter application.
 
