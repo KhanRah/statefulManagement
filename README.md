@@ -1,4 +1,4 @@
-# sliver_app_bar
+# Stateful Management with Flutter
 
 A new Flutter application.
 
