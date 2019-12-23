@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sliver_app_bar/data_manager.dart';
 import 'package:sliver_app_bar/notifier.dart';
-
+import 'package:sliver_app_bar/view2.dart';
 import 'main.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -50,24 +50,36 @@ class _MyHomePageState extends State<MyHomePage> {
                     color: Colors.blue,child: CupertinoActivityIndicator())):Container()),
             Column(
               children: <Widget>[
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    RaisedButton(onPressed: (){
-                      count++;
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      RaisedButton(onPressed: (){
+                        count++;
 
-                      BookingsManager().getBookingsDataFromServer(context,count);
+                        BookingsManager().getBookingsDataFromServer(context,count);
 
-                    },child: Text('Change Store'),),
-                    Text('Store Number ${data.store}'),
-                  ],),
+                      },child: Text('Change Store'),),
+                      RaisedButton(onPressed: (){
+                        Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext context) {
+                          return new MyHomePage2();
+                        }));
+
+                      },child: Text('Second Page'),),
+                      Text('Store Number ${data.store}'),
+                    ],),
+                ),
                 Expanded(
-                  child: ListView.builder(
-                      itemCount: data.data.length,
-                      itemBuilder: (BuildContext context,int index)
-                      {
-                        return Text('This is Name ${data.data[index].firstname}');
-                      }),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: ListView.builder(
+                        itemCount: data.data.length,
+                        itemBuilder: (BuildContext context,int index)
+                        {
+                          return Text('This is Name ${data.data[index].firstname}');
+                        }),
+                  ),
                 )
               ],
             )
