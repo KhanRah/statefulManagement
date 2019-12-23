@@ -34,7 +34,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    final data=Provider.of<DataModel>(context);
+    final data=Provider.of<BookingsDataChangeNotifier>(context);
     return Scaffold(
         appBar: AppBar(
           title: Text(widget.title),
@@ -74,10 +74,10 @@ class _MyHomePageState extends State<MyHomePage> {
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: ListView.builder(
-                        itemCount: data.data.length,
+                        itemCount: data.storeBookingsData.length,
                         itemBuilder: (BuildContext context,int index)
                         {
-                          return Text('This is Name ${data.data[index].firstname}');
+                          return Text('This is Name ${data.storeBookingsData[index].firstname}');
                         }),
                   ),
                 )

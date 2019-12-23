@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sliver_app_bar/data_manager.dart';
+import 'package:sliver_app_bar/db_manger.dart';
 import 'package:sliver_app_bar/notifier.dart';
 
 
@@ -31,7 +32,7 @@ class _MyHomePage2State extends State<MyHomePage2> {
 
   @override
   Widget build(BuildContext context) {
-    final data=Provider.of<DataModel>(context);
+    final data=Provider.of<BookingsDataChangeNotifier>(context);
     return Scaffold(
         appBar: AppBar(
             title:Text('second page')
@@ -58,18 +59,18 @@ class _MyHomePage2State extends State<MyHomePage2> {
                     },child: Text('Change Store'),),
                     RaisedButton(onPressed: (){
 //                      count++;
+                      BookingsManager().deleteBooking("5168456",count,context);
 
-                      BookingsManager().getBookingsDataFromServer(context,count,true);
 
-                    },child: Text('GetData'),),
+                    },child: Text('Delete'),),
                     Text('Store Number ${data.store}'),
                   ],),
                 Expanded(
                   child: ListView.builder(
-                      itemCount: data.data.length,
+                      itemCount: data.storeBookingsData.length,
                       itemBuilder: (BuildContext context,int index)
                       {
-                        return Text('This is Name ${data.data[index].firstname}');
+                        return Text('This is Name ${data.storeBookingsData[index].firstname}');
                       }),
                 )
               ],

@@ -21,8 +21,13 @@ class BookingsManager {
 //    if(allBookings!=null) allBookings.clear();
     int stroeId = count%2==0?5:14;
 
-       Provider.of<DataModel>(context).getApi(stroeId,getData);
+       Provider.of<BookingsDataChangeNotifier>(context).getApi(stroeId,getData);
 
+  }
+  deleteBooking(String custId,int count,BuildContext context){
+    int storeId = count%2==0?5:14;
+
+    Provider.of<BookingsDataChangeNotifier>(context).deleteRecord(custId,storeId);
   }
 
   getAllBookingsFromCache(int storeId) async{
