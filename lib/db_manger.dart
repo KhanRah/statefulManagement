@@ -130,6 +130,14 @@ class BookingsDBManager{
     print("DB data.... " + bookingsList.toString());
     return bookingsList;
   }
+  Future<int> clearBookingsByCustomerId(String custId) async{
+    print('bookings delete DB called!!!!!!!!!!!!!');
+    var dbClient = await db;
+    int list = await dbClient.delete('Bookings WHERE bCid= $custId');
+    print("Deleted rows $list");
+    return list;
+  }
+
 
   void clearBookings() async{
     print('bookings delete DB called!!!!!!!!!!!!!');

@@ -9,11 +9,11 @@ import 'package:sliver_app_bar/data_model.dart';
 import 'package:sliver_app_bar/db_manger.dart';
 
 
-class DataModel extends ChangeNotifier {
-  List<Booking> _data=new List<Booking>();
-  List<Booking> allBookings=new List<Booking>();
+class BookingsDataChangeNotifier extends ChangeNotifier {
+  List<Booking> _bookingsData=new List<Booking>();
+  List<Booking> bookingsFromServer=new List<Booking>();
   List<Booking> cachedBookings=new List<Booking>();
-  List get data=>_data;
+  List get storeBookingsData=>_bookingsData;
   int store;
   bool _toggle=false;
   bool get toggle=>_toggle;
@@ -35,16 +35,24 @@ class DataModel extends ChangeNotifier {
 
       );
       var parsedData=json.decode(response.body)['result'];
-      allBookings = bookingFromJson(json.encode(parsedData));
-      var save=BookingsDBManager().saveBookings(allBookings);
+      bookingsFromServer = bookingFromJson(json.encode(parsedData));
+      var save=BookingsDBManager().saveBookings(bookingsFromServer);
       print("save $save");
-      _data = allBookings;
+      _bookingsData = bookingsFromServer;
     }else{
-      _data = cachedBookings;
+      _bookingsData = cachedBookings;
     }
-    print('DATA IS UPDATED   ${allBookings}');
+    print('DATA IS UPDATED   ${bookingsFromServer}');
     _toggle=!_toggle;
     notifyListeners();
+  }
+
+  Future deleteRecord(String custId,int storeId) async{
+   int deletedRowCount = await BookingsDBManager().clearBookingsByCustomerId(custId);
+   cachedBookings = await BookingsManager().getAllBookingsFromCache(storeId);
+   _bookingsData = cachedBookings;
+   notifyListeners();
+
   }
 // This call tells the widgets that are listening to this model to rebuild.
 }

@@ -20,9 +20,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_)=>DataModel(),)
+        ChangeNotifierProvider(create: (_)=>BookingsDataChangeNotifier(),)
       ],
-      child: Consumer<DataModel>(
+      child: Consumer<BookingsDataChangeNotifier>(
         builder: (context,data,_)
         {
           return MaterialApp(
