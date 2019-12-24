@@ -47,8 +47,8 @@ class BookingsDataChangeNotifier extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future deleteRecord(String custId,int storeId) async{
-   int deletedRowCount = await BookingsDBManager().clearBookingsByCustomerId(custId);
+  Future deleteRecord(String bookId,int storeId) async{
+   int deletedRowCount = await BookingsDBManager().clearBookingsByCustomerId(bookId);
    cachedBookings = await BookingsManager().getAllBookingsFromCache(storeId);
    _bookingsData = cachedBookings;
    notifyListeners();

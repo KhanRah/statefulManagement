@@ -28,7 +28,7 @@ class _MyHomePage2State extends State<MyHomePage2> {
 //  {
 //  }
   int count=0;
-
+  bool isSelected = false;
 
   @override
   Widget build(BuildContext context) {
@@ -59,10 +59,8 @@ class _MyHomePage2State extends State<MyHomePage2> {
                     },child: Text('Change Store'),),
                     RaisedButton(onPressed: (){
 //                      count++;
-                      BookingsManager().deleteBooking("5168456",count,context);
-
-
-                    },child: Text('Delete'),),
+                      BookingsManager().getBookingsDataFromServer(context,count,true);
+                    },child: Text('Refresh'),),
                     Text('Store Number ${data.store}'),
                   ],),
                 Expanded(
@@ -70,7 +68,26 @@ class _MyHomePage2State extends State<MyHomePage2> {
                       itemCount: data.storeBookingsData.length,
                       itemBuilder: (BuildContext context,int index)
                       {
-                        return Text('This is Name ${data.storeBookingsData[index].firstname}');
+                        return CheckboxListTile(
+                          key: Key(data.storeBookingsData[index].id),
+                          value: data.storeBookingsData[index].isSelected,
+                        title: Text('This is Name ${data.storeBookingsData[index].firstname}'),
+                        onChanged:(bool  value){
+                            setState(() {
+                              isSelected = value;
+                            });
+                        },
+                          controlAffinity: ListTileControlAffinity.leading,
+//                        onTap: (){
+//                         isSelected = !isSelected;
+//                         BookingsManager().deleteBooking(data.storeBookingsData[index].id,count,context);
+//                       print("tapped list tile id ${data.storeBookingsData[index].id}");
+//                       },
+//                          onLongPress: (){
+//                          isSelected = !isSelected;
+//                          print("long press");
+//                          },
+                        );
                       }),
                 )
               ],
