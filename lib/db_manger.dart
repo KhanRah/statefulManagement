@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'package:path/path.dart';
 import 'package:sliver_app_bar/data_model.dart';
 import 'package:sqflite/sqflite.dart';
@@ -33,7 +34,7 @@ class BookingsDBManager{
 
   void _onCreate(Database db, int dbVersion) async {
     await db.execute(
-        "CREATE TABLE $bookingsTable(id TEXT PRIMARY KEY, resourceId TEXT,title TEXT,start TEXT, end TEXT, storeid TEXT, servicecode TEXT, serviceName TEXT, serviceDefdur TEXT, servicePrebuff TEXT, servicePostbuff TEXT,servicePrice TEXT,color TEXT,borderColor TEXT, empcode TEXT,otrr TEXT, recurringDay TEXT,repeatPattern TEXT,recurringNo TEXT,bCid TEXT,firstname TEXT,lastname TEXT,email TEXT,countrycode TEXT,mobile TEXT,staffnote TEXT,bookingType TEXT)");
+        "CREATE TABLE $bookingsTable(id TEXT PRIMARY KEY, resourceId TEXT,title TEXT,start TEXT, end TEXT, storeid TEXT, servicecode TEXT, serviceName TEXT, serviceDefdur TEXT, servicePrebuff TEXT, servicePostbuff TEXT,servicePrice TEXT,color TEXT,borderColor TEXT, empcode TEXT,otrr TEXT, recurringDay TEXT,repeatPattern TEXT,recurringNo TEXT,bCid TEXT,firstname TEXT,lastname TEXT,email TEXT,countrycode TEXT,mobile TEXT,staffnote TEXT,bookingType TEXT,isSelected TEXT,isSelected TEXT)");
   }
 
   Future<int> saveBooking(Booking booking) async {
@@ -84,6 +85,7 @@ class BookingsDBManager{
         mobile: list[i]["mobile"],
         staffnote: list[i]["staffnote"],
         bookingType: list[i]["bookingType"],
+        isSelected: list[i]["isSelected"]
       );
       bookingsList.add(eachBooking);
     }
@@ -124,16 +126,17 @@ class BookingsDBManager{
         mobile: list[i]["mobile"],
         staffnote: list[i]["staffnote"],
         bookingType: list[i]["bookingType"],
+        isSelected: json.decode(list[i]["isSelected"])
       );
       bookingsList.add(eachBooking);
     }
     print("DB data.... " + bookingsList.toString());
     return bookingsList;
   }
-  Future<int> clearBookingsByCustomerId(String custId) async{
+  Future<int> clearBookingsByCustomerId(String bookId) async{
     print('bookings delete DB called!!!!!!!!!!!!!');
     var dbClient = await db;
-    int list = await dbClient.delete('Bookings WHERE bCid= $custId');
+    int list = await dbClient.delete('Bookings WHERE id= $bookId');
     print("Deleted rows $list");
     return list;
   }

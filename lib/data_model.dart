@@ -36,6 +36,7 @@ class Booking {
   String mobile;
   String staffnote;
   String bookingType;
+  bool isSelected;
 
   Booking({
     this.id,
@@ -65,6 +66,7 @@ class Booking {
     this.mobile,
     this.staffnote,
     this.bookingType,
+    this.isSelected,
   });
 
   factory Booking.fromJson(Map<String, dynamic> json) => Booking(
@@ -95,6 +97,7 @@ class Booking {
     mobile: json["mobile"].toString(),
     staffnote: json["staffnote"].toString(),
     bookingType: json["booking_type"].toString(),
+    isSelected: false,
   );
 
   Map<String, dynamic> toJson() => {
@@ -125,6 +128,7 @@ class Booking {
     "mobile": mobile,
     "staffnote": staffnote,
     "booking_type": bookingType,
+    "isSelected": false,
   };
 
   @override
@@ -156,7 +160,8 @@ class Booking {
         'countrycode: $countrycode,'
         'mobile: $mobile,'
         'staffnote: $staffnote,'
-        'booking_type: $bookingType,}';
+        'booking_type: $bookingType,'
+        'isSelected: false}';
   }
 
   Booking.map(dynamic json) {
@@ -187,6 +192,7 @@ class Booking {
     this.mobile = json["mobile"];
     this.staffnote = json["staffnote"];
     this.bookingType = json["booking_type"];
+    this.isSelected = false;
   }
 
   Map<String, dynamic> toMap() {
@@ -218,6 +224,7 @@ class Booking {
     map["mobile"] = mobile ?? "";
     map["staffnote"] = staffnote ?? "";
     map["bookingType"] = bookingType ?? "";
+    map["isSelected"] = false ?? "";
     return map;
   }
 }
